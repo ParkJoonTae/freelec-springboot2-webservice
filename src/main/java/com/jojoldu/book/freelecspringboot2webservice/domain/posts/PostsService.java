@@ -19,7 +19,7 @@ public class PostsService {
     }
 
     @Transactional
-    public Long update(Long id, PostsUpdateRequestDto requestDto){
+    public Long update(Long id, PostsUpdateRequestDto requestDto){ // Entity객체의 값만 변경하면 update쿼리를 쓸 필요 X. 영속성 컨텍스트. 더티 체킹
         Posts posts = postsRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("해당 게시글이 없습니다. id="+id));
         posts.update(requestDto.getTitle(), requestDto.getContent());
@@ -28,9 +28,7 @@ public class PostsService {
     }
 
     public PostsResponseDto findById(Long id){
-        Posts entity = postsRepository.findById(id).orElseThrow(() ->
-                new IllegalArgumentException("해당 게시글이 없습니다. id="+id));
-
+        Posts entity = postsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다.!! id="+id));
         return new PostsResponseDto(entity);
     }
 }

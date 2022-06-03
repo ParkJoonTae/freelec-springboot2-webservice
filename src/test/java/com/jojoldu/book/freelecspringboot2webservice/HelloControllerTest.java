@@ -17,16 +17,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class HelloControllerTest {
 
-    @Autowired
-    MockMvc mvc;
+    @Autowired // 스프링이 관리하는 bean을 주입받는다.
+    MockMvc mvc; // 웹mvc를 테스트할때 사용. 스프링 mvc테스트의 시작점. 이 클래스로 get, post등 api테스트 가능
 
     @Test
     public void hello_return() throws Exception{
         String hello = "hello";
 
-        mvc.perform(get("/hello"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(hello));
+        mvc.perform(get("/hello"))   // mockmvc를 통해 /hello경로로 get요청
+                .andExpect(status().isOk())    // OK: 200인지 아닌지 검증
+                .andExpect(content().string(hello));    // 리턴값이 hello가 맞는지 검증
     }
 
     @Test
@@ -35,10 +35,10 @@ public class HelloControllerTest {
         int amount = 1000;
 
         mvc.perform(get("/hello/dto")
-                .param("name", name)
+                .param("name", name)            // 요청 파라미터 설정. 값은 String만 허용
                 .param("amount", String.valueOf(amount)))
                 .andExpect(status().isOk())
-                .andExpect((ResultMatcher) jsonPath("$.name", is(name)))
+                .andExpect((ResultMatcher) jsonPath("$.name", is(name)))     // json 응답값을 필드별로 검증가능
                 .andExpect((ResultMatcher) jsonPath("$.amount", is(amount)));
     }
 
