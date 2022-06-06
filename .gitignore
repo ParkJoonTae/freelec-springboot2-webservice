@@ -39,3 +39,4 @@ out/
 
 # OAuth2
 /src/main/resources/application-oauth.properties
+/src/main/java/tttt
