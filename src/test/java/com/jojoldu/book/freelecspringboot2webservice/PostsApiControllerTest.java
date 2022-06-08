@@ -7,17 +7,23 @@ import com.jojoldu.book.freelecspringboot2webservice.web.dto.PostsSaveRequestDto
 import com.jojoldu.book.freelecspringboot2webservice.web.dto.PostsUpdateRequestDto;
 import org.aspectj.lang.annotation.After;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.util.List;
 
@@ -42,6 +48,8 @@ public class PostsApiControllerTest {
     }
 
     @Test
+    @WithMockUser(roles="USER")
+    // 인증된 모의(가짜) 사용자를 만들어서 사용합니다. roles에 권한을 추가할 수 있습니다.
     public void Posts_등록된다() throws Exception{
         //given
         String title = "title";
@@ -67,6 +75,7 @@ public class PostsApiControllerTest {
     }
 
     @Test
+    @WithMockUser(roles="USER")
     public void Posts_수정된다() throws Exception{
         //given
         Posts savePosts = postsRepository.save(Posts.builder()
