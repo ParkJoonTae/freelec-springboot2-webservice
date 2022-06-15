@@ -15,6 +15,7 @@
 //import org.springframework.http.HttpMethod;
 //import org.springframework.http.HttpStatus;
 //import org.springframework.http.ResponseEntity;
+//import org.springframework.security.test.context.support.WithMockUser;
 //import org.springframework.test.context.junit.jupiter.SpringExtension;
 //
 //import java.util.List;
@@ -40,7 +41,7 @@
 //    }
 //
 //    @Test
-//    //@WithMockUser(roles="USER")
+//    @WithMockUser(roles="USER")
 //    // 인증된 모의(가짜) 사용자를 만들어서 사용합니다. roles에 권한을 추가할 수 있습니다.
 //    public void Posts_등록된다() throws Exception{
 //        //given
@@ -67,7 +68,7 @@
 //    }
 //
 //    @Test
-//    //@WithMockUser(roles="USER")
+//    @WithMockUser(roles="USER")
 //    public void Posts_수정된다() throws Exception{
 //        //given
 //        Posts savePosts = postsRepository.save(Posts.builder()
